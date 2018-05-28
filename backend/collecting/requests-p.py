@@ -252,9 +252,13 @@ def saveFilesInThisPage(numOfFileFound,numOfReposChecked):
     filelinks = findElementsByXpath(trees[1],'//*[@id="code_search_results"]/div[1]/div/div[1]/a')
     print('files page is loaded')
     for filelink in filelinks:
-        fileName = str('https://github.com'+filelink.attrib['href'])
-        fileName = fileName.split("/")
-        fileName = str(fileName[len(fileName)-2])+'.'+str(fileName[len(fileName)-1])
+        fileName = str(filelink.attrib['href'])
+        fileName1 = fileName.split("/")
+        fileName = ""
+        for name in fileName1:
+            fileName = fileName + name
+        # print(fileName1)
+        # fileName = str(fileName[len(fileName)-2])+'.'+str(fileName[len(fileName)-1])
         if mode == 'add':
             if not os.path.exists(path[0]+fileName):
                 saveNewFile('https://github.com'+filelink.attrib['href'],fileName,numOfFileFound,numOfReposChecked)

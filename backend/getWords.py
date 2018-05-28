@@ -56,8 +56,8 @@ def getWords(file,path):
     f.close() 
     return dict(counter.most_common()) # creates tuples of word and num of repetes in this source code
 
-def output(file,path):
-    f = open(path+'allWords.csv','w')
+def output(file,path,name):
+    f = open(path+name+'.csv','w')
     f.write(str(file))
     f.close()
     
@@ -69,7 +69,7 @@ def main():
     forEdited = sys.argv[2]
 
     lanProperties(lan,Lan,extension)
-    if (forEdited == 'n')
+    if forEdited == 'n':
         path = 'collecting/collectedFiles/'+Lan[0]+'/'
     else :
         path = 'collecting/collectedFiles/'+Lan[0]+'/edited/'
@@ -85,10 +85,15 @@ def main():
             else :
                 allWords.update({wordAndNum :thisWords.get(wordAndNum)})
     allWords = sorted(list(allWords.items()), key=itemgetter(1), reverse=True)# sorts allWords
+    top1000 = []
+    for i in range(0,1000):
+        top1000.append(allWords[i])
+    
     #print(allWords)
 
     #----------------------create output file
-    output(allWords,path)
+    output(allWords,path,'allWords')
+    output(top1000,path,lan+'Top1000')
     print("--- %s seconds ---" % (time.time() - start_time))
     print('All Done!')
     
